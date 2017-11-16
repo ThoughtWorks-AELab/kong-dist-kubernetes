@@ -46,9 +46,10 @@ spec:
     targetPort: 8001
     protocol: TCP
   selector:
-    app: kong  
+    app: kong
 
 ---
+apiVersion: v1
 kind: Service
 metadata:
   name: kong-admin-ssl
@@ -96,7 +97,7 @@ spec:
           - name: KONG_PROXY_ERROR_LOG
             value: "/dev/stderr"
           - name: KONG_ADMIN_ERROR_LOG
-            value: "/dev/stderr"  
+            value: "/dev/stderr"
         ports:
         - name: admin
           containerPort: 8001
@@ -110,4 +111,3 @@ spec:
         - name: admin-ssl
           containerPort: 8444
           protocol: TCP
-
