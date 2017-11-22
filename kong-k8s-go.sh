@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 DIR_OF_ME=$(dirname $0)
 DNS_ROOT=$1
