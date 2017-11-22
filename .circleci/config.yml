@@ -25,9 +25,9 @@ jobs:
 
 workflows:
   version: 2
-  consul:
+  kong:
     jobs:
-      - add-consul
+      - add-kong
       - approve-delete-kong:
          type: approval
       - delete-kong:
