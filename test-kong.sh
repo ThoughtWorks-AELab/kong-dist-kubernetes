@@ -1,4 +1,6 @@
 #!/bin/bash
+set -x
+
 ADMIN_SSL_ELB=`kubectl get svc/kong-admin-ssl -o jsonpath="{.status.loadBalancer.ingress[0].hostname}"`
 echo "Hit kong-admin-ssl endpoint"
 TIME=0
