@@ -89,14 +89,14 @@ cmd "kubectl delete -f kong_migration_cassandra.yaml" #cleanup job
 ##################
 cmd "kubectl apply -f kong_cassandra.yaml"
 TIME=0
-TIMEOUT=60
+TIMEOUT=120
 while [[ $TIME -ne ${TIMEOUT} ]]; do
 	sleep ${INTERVAL:=5}
 	((TIME+=$INTERVAL))
 	echo "TIME(/$TIMEOUT): $TIME"
-	echo "Waiting for kong replicas (3)"
-	RESPONSE=`kubectl get deploy kong-rc -o jsonpath="{.status.readyReplicas}"`
-	if [[ ! -z $RESPONSE && $RESPONSE == "3" ]]; then
+	echo "Waiting for kong-admin-ssl ELB to instantiate"
+	ADMIN_SSL_ELB=`kubectl get svc/kong-admin-ssl -o jsonpath="{.status.loadBalancer.ingress[0].hostname}"`
+	if [[ ! -z $ADMIN_SSL_ELB ]]; then
 		break
 	fi
 	if [[ $TIME -eq $TIMEOUT ]]; then
